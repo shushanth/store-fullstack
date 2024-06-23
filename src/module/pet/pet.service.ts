@@ -11,7 +11,8 @@ export class PetService {
   ) {}
 
   async create(pet: PetDTO): Promise<Pet> {
-    return await this.petModel.create(pet);
+    const createdPet = new this.petModel(pet);
+    return createdPet.save();
   }
   async findById(id: number): Promise<Pet> {
     return await this.petModel.findById(id);

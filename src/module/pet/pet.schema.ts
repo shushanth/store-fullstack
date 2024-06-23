@@ -1,24 +1,36 @@
-import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import { Schema, Prop, SchemaFactory, raw } from '@nestjs/mongoose';
+import { HydratedDocument } from 'mongoose';
 
 @Schema()
 export class Pet {
   @Prop({ required: true })
   name: string;
 
-  @Prop({ required: true })
-  category: { name: string }[];
+  @Prop(
+    raw([
+      {
+        name: String,
+      },
+    ]),
+  )
+  category: Record<string, any>[];
 
   @Prop({ required: true })
   photoUrls: { name: string }[];
 
-  @Prop({ required: true })
-  tags: { name: string }[];
+  @Prop(
+    raw([
+      {
+        name: String,
+      },
+    ]),
+  )
+  tags: Record<string, any>[];
 
   @Prop({ required: true })
   status: string[];
 }
 
-export type PetDocument = Pet & Document;
+export type PetDocument = HydratedDocument<Pet>;
 
 export const PetSchema = SchemaFactory.createForClass(Pet);
