@@ -1,5 +1,3 @@
-import { UpdatePetDTO } from './dto/update-pet.dto';
-import { CreatePetDTO } from './dto/create-pet.dto';
 import {
   Controller,
   Get,
@@ -13,7 +11,8 @@ import {
   HttpCode,
   HttpStatus,
 } from '@nestjs/common';
-
+import { UpdatePetDTO } from './dto/update-pet.dto';
+import { CreatePetDTO } from './dto/create-pet.dto';
 import { PetService } from './pet.service';
 import { Pet } from './pet.schema';
 import { PetStatus } from './enums/pet.enum';
