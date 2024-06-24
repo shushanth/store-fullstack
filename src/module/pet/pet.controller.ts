@@ -1,4 +1,3 @@
-import { PetIdDTO } from './dto/pet-id.dto';
 import { UpdatePetDTO } from './dto/update-pet.dto';
 import { CreatePetDTO } from './dto/create-pet.dto';
 import {
@@ -10,7 +9,6 @@ import {
   Query,
   ParseArrayPipe,
   Delete,
-  ParseIntPipe,
   Put,
   HttpCode,
   HttpStatus,
