@@ -1,7 +1,10 @@
-import { PetDTO, PetStatus } from './dto/pet.dto';
-import { Injectable, Logger } from '@nestjs/common';
+import { PetIdDTO } from './dto/pet-id.dto';
+import { UpdatePetDTO } from './dto/update-pet.dto';
+import { CreatePetDTO } from './dto/create-pet.dto';
+import { PetStatus } from './enums/pet.enum';
+import { Injectable, NotFoundException, Logger } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import mongoose, { Model, Mongoose } from 'mongoose';
+import { Model, Types } from 'mongoose';
 import { Pet, PetDocument } from './pet.schema';
 
 @Injectable()
@@ -10,12 +13,17 @@ export class PetService {
     @InjectModel(Pet.name) private readonly petModel: Model<PetDocument>,
   ) {}
 
-  async create(pet: PetDTO): Promise<Pet> {
+  async create(pet: CreatePetDTO): Promise<Pet> {
     const createdPet = new this.petModel(pet);
     return createdPet.save();
   }
-  async findById(id: number): Promise<Pet> {
-    return await this.petModel.findById(id);
+
+  async findById(id: string): Promise<Pet> {
+    const petExists = await this.petModel.countDocuments({ _id: id });
+    if (!petExists) {
+      throw new NotFoundException();
+    }
+    return this.petModel.findById(id).exec();
   }
 
   async findByStatus(
@@ -32,9 +40,34 @@ export class PetService {
     });
   }
 
-  async deleteById(id: number) {
+  async deleteById(id: string) {
     return await this.petModel.deleteOne({
       _id: id,
     });
+  }
+
+  async updatePet(pet: UpdatePetDTO) {
+    const petId = pet.id;
+    const petExists = await this.petModel.countDocuments({ _id: petId });
+    if (!petExists) {
+      throw new NotFoundException();
+    }
+    return await this.petModel.updateOne(
+      {
+        _id: petId,
+      },
+      {
+        $set: { ...pet },
+      },
+    );
+  }
+
+  async updatePetById(id: string, name: string, status: string): Promise<Pet> {
+    const petExists = await this.petModel.countDocuments({ _id: id });
+    if (!petExists) {
+      throw new NotFoundException();
+    }
+    await this.petModel.updateOne({ _id: id }, { $set: { name, status } });
+    return this.petModel.findById(id);
   }
 }
