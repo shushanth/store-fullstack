@@ -1,4 +1,3 @@
-import { PetIdDTO } from './dto/pet-id.dto';
 import { UpdatePetDTO } from './dto/update-pet.dto';
 import { CreatePetDTO } from './dto/create-pet.dto';
 import { PetStatus } from './enums/pet.enum';
@@ -67,7 +66,26 @@ export class PetService {
     if (!petExists) {
       throw new NotFoundException();
     }
-    await this.petModel.updateOne({ _id: id }, { $set: { name, status } });
-    return this.petModel.findById(id);
+    return await this.petModel.findOneAndUpdate(
+      { _id: id },
+      { $set: { name, status } },
+      { new: true },
+    );
+  }
+
+  async uploadPetImage(
+    id: string,
+    fileName: string,
+    link: string,
+  ): Promise<Pet> {
+    const petExists = await this.petModel.countDocuments({ _id: id });
+    if (!petExists) {
+      throw new NotFoundException();
+    }
+    return await this.petModel.findOneAndUpdate(
+      { _id: id },
+      { $push: { photoUrls: { name: fileName, link } } },
+      { new: true },
+    );
   }
 }

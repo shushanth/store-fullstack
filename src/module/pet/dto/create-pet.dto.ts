@@ -30,7 +30,6 @@ export class CreatePetDTO {
   @IsArray()
   @ValidateNested({ each: true })
   @Type(() => PetPhotoUrls)
-  @ArrayMinSize(1)
   readonly photoUrls: PetPhotoUrls[];
 
   @IsArray()

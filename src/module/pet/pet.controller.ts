@@ -1,3 +1,8 @@
+import { ImageUploadValidator } from './validators/pet.validator';
+import {
+  IMAGE_UPLOAD_SIZE,
+  IMAGE_UPLOAD_TYPES,
+} from './constants/pet.constants';
 import {
   Controller,
   Get,
@@ -10,13 +15,17 @@ import {
   Put,
   HttpCode,
   HttpStatus,
+  UseInterceptors,
+  UploadedFile,
+  ParseFilePipeBuilder,
 } from '@nestjs/common';
 import { UpdatePetDTO } from './dto/update-pet.dto';
 import { CreatePetDTO } from './dto/create-pet.dto';
 import { PetService } from './pet.service';
 import { Pet } from './pet.schema';
 import { PetStatus } from './enums/pet.enum';
-
+import { FileInterceptor } from '@nestjs/platform-express';
+import { diskStorage } from 'multer';
 @Controller('pet')
 export class PetController {
   constructor(private petService: PetService) {}
@@ -67,5 +76,53 @@ export class PetController {
     @Query('status') status: string,
   ): Promise<Pet> {
     return this.petService.updatePetById(id, name, status);
+  }
+
+  @Post(':id/uploadImage')
+  @UseInterceptors(
+    FileInterceptor('image', {
+      storage: diskStorage({
+        destination: './public/images/pet',
+        filename: (req, file, cb) => {
+          const name = file.originalname.split('.')[0];
+
+          const fileExtName = file.originalname;
+          const randomName = Array(4)
+            .fill(null)
+            .map(() => Math.round(Math.random() * 16).toString(16))
+            .join('');
+          cb(null, `${name}-${randomName}${fileExtName}`);
+        },
+      }),
+      // fileFilter: (req, file, cb) => {
+      //   if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/)) {
+      //     return cb(new Error('Only image files are allowed!'), false);
+      //   }
+      //   cb(null, true);
+      // },
+    }),
+  )
+  uploadImage(
+    @Param('id') id: string,
+    @UploadedFile(
+      new ParseFilePipeBuilder()
+        // .addValidator(
+        //   new ImageUploadValidator({
+        //     fileType: IMAGE_UPLOAD_TYPES,
+        //   }),
+        // )
+        // .addMaxSizeValidator({
+        //   maxSize: IMAGE_UPLOAD_SIZE,
+        // })
+        .build({ errorHttpStatusCode: HttpStatus.UNPROCESSABLE_ENTITY }),
+    )
+    file: Express.Multer.File,
+  ): Promise<Pet> {
+    const petPhotoUrl = file.filename;
+    return this.petService.uploadPetImage(
+      id,
+      petPhotoUrl,
+      `/images/pet/${petPhotoUrl}`,
+    );
   }
 }
