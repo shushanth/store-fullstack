@@ -2,6 +2,7 @@ import { ImageUploadValidator } from './validators/pet.validator';
 import {
   IMAGE_UPLOAD_SIZE,
   IMAGE_UPLOAD_TYPES,
+  IMAGE_UPLOAD_TYPES_ERROR,
 } from './constants/pet.constants';
 import {
   Controller,
@@ -18,6 +19,7 @@ import {
   UseInterceptors,
   UploadedFile,
   ParseFilePipeBuilder,
+  BadRequestException,
 } from '@nestjs/common';
 import { UpdatePetDTO } from './dto/update-pet.dto';
 import { CreatePetDTO } from './dto/create-pet.dto';
@@ -25,7 +27,7 @@ import { PetService } from './pet.service';
 import { Pet } from './pet.schema';
 import { PetStatus } from './enums/pet.enum';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { diskStorage } from 'multer';
+import { diskStorage, MulterError } from 'multer';
 @Controller('pet')
 export class PetController {
   constructor(private petService: PetService) {}
@@ -81,11 +83,17 @@ export class PetController {
   @Post(':id/uploadImage')
   @UseInterceptors(
     FileInterceptor('image', {
+      fileFilter: (req, file, cb) => {
+        if (!file.originalname.match(/^.*\.(jpg|webp|png|jpeg)$/)) {
+          cb(new MulterError('LIMIT_UNEXPECTED_FILE', 'image'), false);
+        } else {
+          cb(null, true);
+        }
+      },
       storage: diskStorage({
         destination: './public/images/pet',
         filename: (req, file, cb) => {
           const name = file.originalname.split('.')[0];
-
           const fileExtName = file.originalname;
           const randomName = Array(4)
             .fill(null)
@@ -94,30 +102,25 @@ export class PetController {
           cb(null, `${name}-${randomName}${fileExtName}`);
         },
       }),
-      // fileFilter: (req, file, cb) => {
-      //   if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/)) {
-      //     return cb(new Error('Only image files are allowed!'), false);
-      //   }
-      //   cb(null, true);
-      // },
     }),
   )
   uploadImage(
     @Param('id') id: string,
     @UploadedFile(
       new ParseFilePipeBuilder()
-        // .addValidator(
-        //   new ImageUploadValidator({
-        //     fileType: IMAGE_UPLOAD_TYPES,
-        //   }),
-        // )
-        // .addMaxSizeValidator({
-        //   maxSize: IMAGE_UPLOAD_SIZE,
-        // })
+        .addValidator(
+          new ImageUploadValidator({
+            fileType: IMAGE_UPLOAD_TYPES,
+          }),
+        )
+        .addMaxSizeValidator({
+          maxSize: IMAGE_UPLOAD_SIZE,
+        })
         .build({ errorHttpStatusCode: HttpStatus.UNPROCESSABLE_ENTITY }),
     )
     file: Express.Multer.File,
   ): Promise<Pet> {
+    debugger;
     const petPhotoUrl = file.filename;
     return this.petService.uploadPetImage(
       id,

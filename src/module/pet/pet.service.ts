@@ -76,7 +76,7 @@ export class PetService {
   async uploadPetImage(
     id: string,
     fileName: string,
-    link: string,
+    url: string,
   ): Promise<Pet> {
     const petExists = await this.petModel.countDocuments({ _id: id });
     if (!petExists) {
@@ -84,7 +84,7 @@ export class PetService {
     }
     return await this.petModel.findOneAndUpdate(
       { _id: id },
-      { $push: { photoUrls: { name: fileName, link } } },
+      { $push: { photoUrls: { name: fileName, url } } },
       { new: true },
     );
   }

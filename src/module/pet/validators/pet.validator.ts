@@ -1,3 +1,4 @@
+import { IMAGE_UPLOAD_TYPES_ERROR } from './../constants/pet.constants';
 import { FileValidator } from '@nestjs/common';
 import { buildMessage } from 'class-validator';
 import * as fileType from 'file-type-mime';
@@ -16,10 +17,9 @@ export class ImageUploadValidator extends FileValidator {
   }
 
   isValid(file?: Express.Multer.File): boolean {
-    const result = fileType.parse(file.buffer);
-    return this.uploadImageOptions.includes(result.mime);
+    return this.uploadImageOptions.includes(file.mimetype);
   }
   buildErrorMessage(): string {
-    return 'upload image file should be of type jp(e)g, png';
+    return IMAGE_UPLOAD_TYPES_ERROR;
   }
 }
