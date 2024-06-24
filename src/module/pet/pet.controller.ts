@@ -8,7 +8,6 @@ import {
   Body,
   Param,
   Query,
-  Logger,
   ParseArrayPipe,
   Delete,
   ParseIntPipe,
@@ -16,6 +15,7 @@ import {
   HttpCode,
   HttpStatus,
 } from '@nestjs/common';
+
 import { PetService } from './pet.service';
 import { Pet } from './pet.schema';
 import { PetStatus } from './enums/pet.enum';
