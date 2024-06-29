@@ -1,5 +1,5 @@
 import { PetListState } from './petListSliceModel';
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const initialState: PetListState = {
   pets: {
@@ -13,12 +13,26 @@ const petListSlice = createSlice({
   name: 'petListSlice',
   initialState,
   reducers: {
-    fetchPetList: (state, { payload }) => {
+    fetchPetListLoading: (
+      state,
+      { payload = true }: PayloadAction<boolean>,
+    ) => {
+      state.pets.loading = payload;
+      state.pets.error = false;
+    },
+    fetchPetListSuccess: (state, { payload }) => {
       state.pets.list = payload;
+      state.pets.loading = false;
+      state.pets.error = false;
+    },
+    fetchPetsError: (state, { payload = true }: PayloadAction<boolean>) => {
+      state.pets.error = payload;
+      state.pets.loading = false;
     },
   },
 });
 
-export const { fetchPetList } = petListSlice.actions;
+export const { fetchPetListLoading, fetchPetListSuccess, fetchPetsError } =
+  petListSlice.actions;
 
 export default petListSlice.reducer;

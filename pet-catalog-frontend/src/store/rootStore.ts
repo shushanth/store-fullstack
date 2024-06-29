@@ -10,4 +10,6 @@ const rootStore = configureStore({
   devTools: process.env.NODE_ENV !== 'production',
 });
 
+export type RootState = ReturnType<typeof rootStore.getState>;
+
 export default rootStore;

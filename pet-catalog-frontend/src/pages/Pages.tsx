@@ -1,11 +1,15 @@
 import { BrowserRouter } from 'react-router-dom';
 import PageRoutes from './routes/Routes';
 
+import * as Styled from '../common/styled';
+
 const Pages = (): JSX.Element => {
   return (
-    <BrowserRouter>
-      <PageRoutes />
-    </BrowserRouter>
+    <Styled.PageLayout>
+      <BrowserRouter>
+        <PageRoutes />
+      </BrowserRouter>
+    </Styled.PageLayout>
   );
 };
 

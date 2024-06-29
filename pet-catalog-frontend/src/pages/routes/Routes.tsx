@@ -3,6 +3,7 @@ import PetDetails from '../petDetails/PetDetails';
 import PetList from '../petList/PetList';
 import { ErrorBoundary } from 'react-error-boundary';
 import Error from '../../common/Error';
+import * as Styled from '../../common/styled';
 
 const PageRoutes = () => {
   return (

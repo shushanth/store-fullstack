@@ -1,22 +1,21 @@
+export type PetCommonModel = {
+  name: string;
+};
+
 export enum PetStatusEnum {
   pending = 'pending',
   available = 'available',
   sold = 'sold',
 }
 
-export type PetCategory = {
-  name: string;
-};
+export type PetCategory = Pick<PetCommonModel, 'name'>;
 
-export type PetTags = {
-  name: string;
-};
+export type PetTags = Pick<PetCommonModel, 'name'>;
 
-export type PetPhotoUrls = {
-  name: string;
-};
+export type PetPhotoUrls = Pick<PetCommonModel, 'name'>;
 
 export type Pet = {
+  _id: string;
   name: string;
   category: PetCategory[];
   tags: PetTags[];

@@ -1,9 +1,7 @@
 export const fontSizes = {
   headings: {
     small: '20px',
-    medium: '22px',
-    large: '26px',
-    xlarge: '30px',
+    large: '28px',
   },
   labels: {
     xsmall: '12px',
