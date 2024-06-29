@@ -10,7 +10,7 @@ export const ListContainer = styled.div`
 
 export const List = styled.div`
   display: flex;
-  background: ${colors.magnoliaWhite};
+  background: ${colors.skyCloud};
   border-radius: 2px;
   gap: 10px;
   padding: 10px 0;

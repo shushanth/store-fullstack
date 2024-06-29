@@ -15,6 +15,7 @@ export const colors = {
   white: '#fff',
   black: '#000',
   magnoliaWhite: '#f1f1ff',
+  skyCloud: '#87ceeb5c',
   jetBlack: '#393939',
   blackPrimary: '#000000a8',
   blackSecondary: '#000000e8',

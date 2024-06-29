@@ -24,7 +24,7 @@ const PetListView = React.memo((): JSX.Element => {
             <Styled.Link
               className={'link'}
               $linkType="default"
-              to={`/user/${_id}`}
+              to={`/pet/${_id}`}
               key={_id}
             >
               <Styled.List>
@@ -62,7 +62,6 @@ const PetListView = React.memo((): JSX.Element => {
           );
         })}
       </Styled.ListContainer>
-      )
     </React.Suspense>
   );
 });
