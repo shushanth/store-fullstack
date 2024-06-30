@@ -12,7 +12,6 @@ import { HttpVerbs } from '../../common/services/apiService';
 const PetList = (): JSX.Element => {
   const dispatchEffect = useDispatchEffect();
   const requestPets = () => {
-    debugger;
     const effectsActions = {
       loading: fetchPetListLoading,
       success: fetchPetListSuccess,

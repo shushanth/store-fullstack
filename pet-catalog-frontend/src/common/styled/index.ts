@@ -1,7 +1,7 @@
 import { Link } from './link';
 import { List, ListContainer, ListBucket } from './list';
 import { Label, Heading } from './label';
-import { PageLayout, Layout } from './layout';
+import { PageLayout, Layout, PageCardLayout } from './layout';
 
 export {
   Label,
@@ -11,5 +11,6 @@ export {
   ListContainer,
   ListBucket,
   Layout,
+  PageCardLayout,
   Link,
 };

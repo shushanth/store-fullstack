@@ -1,4 +1,4 @@
-export type PetCommonModel = {
+export type PetSliceCommon = {
   name: string;
 };
 
@@ -8,11 +8,11 @@ export enum PetStatusEnum {
   sold = 'sold',
 }
 
-export type PetCategory = Pick<PetCommonModel, 'name'>;
+export type PetCategory = Pick<PetSliceCommon, 'name'>;
 
-export type PetTags = Pick<PetCommonModel, 'name'>;
+export type PetTags = Pick<PetSliceCommon, 'name'>;
 
-export type PetPhotoUrls = Pick<PetCommonModel, 'name'>;
+export type PetPhotoUrls = Pick<PetSliceCommon, 'name'>;
 
 export type Pet = {
   _id: string;
@@ -20,7 +20,7 @@ export type Pet = {
   category: PetCategory[];
   tags: PetTags[];
   photoUrls: PetPhotoUrls[];
-  status: PetStatusEnum[];
+  status: PetStatusEnum;
 };
 
 export interface PetListState {
