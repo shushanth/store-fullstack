@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { PetDetailsState } from './petDetailsSliceModel';
-import { Pet, PetStatusEnum } from './../../petList/store/petListSliceModel';
+import { Pet, PetStatusEnum } from '../../petList/store/petListSliceModel';
 
 const initialState: PetDetailsState = {
   loading: false,

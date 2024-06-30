@@ -2,8 +2,8 @@ import React from 'react';
 import { Routes, Route } from 'react-router';
 import PetList from '../petList/PetList';
 import { ErrorBoundary } from 'react-error-boundary';
-import Error from '../../common/Error';
-import Loading from '../../common/Loading';
+import Error from '../../common/components/Error';
+import Loading from '../../common/components/Loading';
 
 const PetDetails = React.lazy(() => import('../petDetails/PetDetails'));
 const PageRoutes = () => {

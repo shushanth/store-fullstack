@@ -1,3 +1,4 @@
+import { Image } from './image';
 import { Link } from './link';
 import { List, ListContainer, ListBucket } from './list';
 import { Label, Heading } from './label';
@@ -12,6 +13,7 @@ import { Button, ButtonDropdownWrapper } from './button';
 import { Input } from './input';
 
 export {
+  Image,
   Input,
   Label,
   PageLayout,

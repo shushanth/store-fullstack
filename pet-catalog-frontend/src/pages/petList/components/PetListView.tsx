@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import EmptyResults from '../../../common/EmptyResults';
-import Loading from '../../../common/Loading';
+import EmptyResults from '../../../common/components/EmptyResults';
+import Loading from '../../../common/components/Loading';
 import * as Styled from '../../../common/styled';
 import { RootState } from '../../../store/rootStore';
 import { Pet } from '../store/petListSliceModel';

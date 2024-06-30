@@ -1,4 +1,4 @@
-import { Pet } from './../../petList/store/petListSliceModel';
+import { Pet } from '../../petList/store/petListSliceModel';
 export interface PetDetailsState {
   pet: Pet;
   loading: boolean;

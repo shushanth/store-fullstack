@@ -8,7 +8,7 @@ import {
   fetchPetsError,
 } from './store/petListSlice';
 import { HttpVerbs } from '../../common/services/apiService';
-import PetPageActions from '../petList/components/PetPageActions';
+import PetPageActions from './components/PetPageActions';
 import { DropDownItem } from '../../common/components/dropdown/Dropdown';
 import { PetStatusEnum } from './store/petListSliceModel';
 const effectsActions = {
