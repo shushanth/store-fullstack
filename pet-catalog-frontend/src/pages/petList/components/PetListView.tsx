@@ -12,7 +12,6 @@ const PetListView = React.memo((): JSX.Element => {
   );
   return (
     <React.Suspense fallback={loading && <Loading />}>
-      <Styled.Heading $type="h2">Pets</Styled.Heading>
       <Styled.ListContainer>
         {!loading && !list?.length && <EmptyResults label="pets" />}
         {list.map(({ _id, name, category, status, tags }: Pet) => {

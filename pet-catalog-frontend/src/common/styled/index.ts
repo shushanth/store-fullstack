@@ -1,16 +1,27 @@
 import { Link } from './link';
 import { List, ListContainer, ListBucket } from './list';
 import { Label, Heading } from './label';
-import { PageLayout, Layout, PageCardLayout } from './layout';
+import {
+  PageLayout,
+  Layout,
+  PageCardLayout,
+  DropdownLayout,
+  PageActionsLayout,
+} from './layout';
+import { Button, ButtonDropdownWrapper } from './button';
 
 export {
   Label,
   PageLayout,
+  DropdownLayout,
   Heading,
   List,
   ListContainer,
   ListBucket,
   Layout,
   PageCardLayout,
+  PageActionsLayout,
   Link,
+  ButtonDropdownWrapper,
+  Button,
 };

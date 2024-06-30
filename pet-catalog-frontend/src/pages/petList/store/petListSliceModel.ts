@@ -3,6 +3,7 @@ export type PetSliceCommon = {
 };
 
 export enum PetStatusEnum {
+  all = 'All',
   pending = 'pending',
   available = 'available',
   sold = 'sold',
