@@ -24,7 +24,6 @@ const petDetailsSlice = createSlice({
       state.error = false;
     },
     fetchPetDetailsSuccess: (state, { payload }: PayloadAction<Pet>) => {
-      debugger;
       state.pet = payload;
       state.loading = false;
       state.error = false;

@@ -6,10 +6,6 @@ import * as Styled from '../../../common/styled';
 import { RootState } from '../../../store/rootStore';
 import { Pet } from '../store/petListSliceModel';
 
-// type PetListViewProps = {
-//   pets: Pet[];
-// };
-
 const PetListView = React.memo((): JSX.Element => {
   const { loading, list } = useSelector(
     (state: RootState) => state.petListPage.pets,
@@ -29,14 +25,14 @@ const PetListView = React.memo((): JSX.Element => {
             >
               <Styled.List>
                 <Styled.ListBucket $noFlexResp>
-                  <Styled.Label $size="xsmall" $level="primary">
+                  <Styled.Label $size="small" $level="primary">
                     Name
                   </Styled.Label>
-                  <Styled.Label $size="xsmall">{name}</Styled.Label>
+                  <Styled.Label $size="medium">{name}</Styled.Label>
                 </Styled.ListBucket>
 
                 <Styled.ListBucket $noFlexResp>
-                  <Styled.Label $size="xsmall" $level="primary">
+                  <Styled.Label $level="primary" $size="small">
                     category
                   </Styled.Label>
                   <Styled.Label $size="medium">
@@ -45,14 +41,14 @@ const PetListView = React.memo((): JSX.Element => {
                 </Styled.ListBucket>
 
                 <Styled.ListBucket $noFlexResp>
-                  <Styled.Label $size="xsmall" $level="primary">
+                  <Styled.Label $size="small" $level="primary">
                     tags
                   </Styled.Label>
                   <Styled.Label $size="medium">{tags[0]?.name}</Styled.Label>
                 </Styled.ListBucket>
 
                 <Styled.ListBucket>
-                  <Styled.Label $size="xsmall" $level="primary">
+                  <Styled.Label $size="small" $level="primary">
                     status
                   </Styled.Label>
                   <Styled.Label $size="medium">{status}</Styled.Label>

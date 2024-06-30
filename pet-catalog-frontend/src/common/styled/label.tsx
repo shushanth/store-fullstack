@@ -35,11 +35,11 @@ export const Label = styled.p<{
   ${({ $level }) => {
     switch ($level) {
       case 'primary':
-        return `color: ${colors.blackPrimary}`;
+        return `color: ${colors.blackPrimary};`;
       case 'secondary':
-        return `color: ${colors.blackSecondary}`;
+        return `color: ${colors.blackSecondary};`;
       case 'error':
-        return `color: ${colors.redPrimary}`;
+        return `color: ${colors.redPrimary};`;
       default:
         return `color: inherit;`;
     }
