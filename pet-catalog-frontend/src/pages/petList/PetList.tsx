@@ -39,13 +39,33 @@ const PetList = (): JSX.Element => {
     });
   };
 
+  const onPetTagFilter = (value: string) => {
+    if (!value) {
+      requestPets();
+      return;
+    }
+    const valueInArr = value.trim().toLowerCase().split(/(\s+)/);
+    const tagsQueryStr = valueInArr
+      .filter((item) => !!item.trim())
+      .map((item) => `tags=${item}`)
+      .join('&');
+    dispatchEffect({
+      actions: effectsActions,
+      httpMethod: HttpVerbs.GET,
+      endPoint: `/pet/findByTags?${tagsQueryStr}`,
+    });
+  };
+
   React.useEffect(() => {
     requestPets();
   }, []);
   return (
     <Styled.PageLayout>
       <Styled.Heading $type="h2">Pets</Styled.Heading>
-      <PetPageActions onPetStatusFilter={onPetStatusFilter} />
+      <PetPageActions
+        onPetTagFilter={onPetTagFilter}
+        onPetStatusFilter={onPetStatusFilter}
+      />
       <PetListView />
     </Styled.PageLayout>
   );

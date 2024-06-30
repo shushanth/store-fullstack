@@ -9,8 +9,10 @@ import {
   PageActionsLayout,
 } from './layout';
 import { Button, ButtonDropdownWrapper } from './button';
+import { Input } from './input';
 
 export {
+  Input,
   Label,
   PageLayout,
   DropdownLayout,

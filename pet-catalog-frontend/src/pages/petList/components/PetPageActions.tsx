@@ -30,25 +30,50 @@ const petStatusFilter = [
 
 type PetPageActions = {
   onPetStatusFilter: (item: DropDownItem) => void;
+  onPetTagFilter: (item: string) => void;
 };
 
-const PetPageActions = ({ onPetStatusFilter }: PetPageActions) => {
-  const [selectedSort, setSelectedSort] = React.useState<string>(
+const PetPageActions = ({
+  onPetStatusFilter,
+  onPetTagFilter,
+}: PetPageActions) => {
+  const [statusFilter, setStatusFilter] = React.useState<string>(
     petStatusFilter[0].label,
   );
-  const onSelectedSort = (item: DropDownItem) => {
-    setSelectedSort(item.label);
+  const [tagFilter, setTagFilter] = React.useState<string>('');
+
+  const onStatusFilter = (item: DropDownItem) => {
+    setStatusFilter(item.label);
     onPetStatusFilter(item);
+  };
+
+  const onTagFilter = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const inputValue = event.target.value;
+    if (!inputValue) {
+      onPetTagFilter(inputValue);
+    }
+    setTagFilter(inputValue);
   };
 
   return (
     <Styled.PageActionsLayout>
       <Styled.Layout $type="row">
+        <Styled.Input
+          placeholder="search by tags"
+          $size="medium"
+          onChange={onTagFilter}
+          aria-label="search-filter-name"
+        ></Styled.Input>
+        <Styled.Button title="search" onClick={() => onPetTagFilter(tagFilter)}>
+          Search
+        </Styled.Button>
+      </Styled.Layout>
+      <Styled.Layout $type="row">
         <DropdownMenu
           withButton
-          btnTitle={`${selectedSort}`}
+          btnTitle={`${statusFilter}`}
           items={petStatusFilter}
-          onDropdownSelected={onSelectedSort}
+          onDropdownSelected={onStatusFilter}
         />
       </Styled.Layout>
     </Styled.PageActionsLayout>
