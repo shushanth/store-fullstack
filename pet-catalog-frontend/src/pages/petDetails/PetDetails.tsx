@@ -12,6 +12,7 @@ import {
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/rootStore';
 import Image from '../../common/components/Image';
+import Loading from '../../common/components/Loading';
 const PetDetails = (): JSX.Element => {
   const params = useParams();
   const dispatchEffect = useDispatchEffect();
@@ -42,34 +43,36 @@ const PetDetails = (): JSX.Element => {
   };
   useEffect(() => {
     requestPetDetails();
-  }, []);
+  }, [requestPetDetails]);
   return (
-    <Styled.PageCardLayout>
-      <Styled.Layout $type="row">
-        <Styled.Layout $type="column">
-          <React.Suspense fallback={<Image type="fallback" label="image" />}>
-            <Image
-              label={pet?.name && getImageLabel()}
-              url={pet?.photoUrls?.[0]?.name}
-            />
-          </React.Suspense>
-        </Styled.Layout>
-        <Styled.Layout $type="column" $fullSize>
-          {/* fullname */}
-          <Styled.Heading $type="h1">{pet?.name}</Styled.Heading>
-          {/* Age */}
-          <Styled.Label $size="small">Status</Styled.Label>
-          <Styled.Label>{pet?.status}</Styled.Label>
-          {/* Email */}
-          <Styled.Label $size="small">Category</Styled.Label>
-          <Styled.Label>{getPetCategories()}</Styled.Label>
+    <React.Suspense fallback={<Loading />}>
+      <Styled.PageCardLayout test-id="petdetails-component">
+        <Styled.Layout $type="row" test-id="petDetailsLayout-component">
+          <Styled.Layout $type="column">
+            <React.Suspense fallback={<Image type="fallback" label="image" />}>
+              <Image
+                label={pet?.name && getImageLabel()}
+                url={pet?.photoUrls?.[0]?.name}
+              />
+            </React.Suspense>
+          </Styled.Layout>
+          <Styled.Layout $type="column" $fullSize>
+            {/* fullname */}
+            <Styled.Heading $type="h1">{pet?.name}</Styled.Heading>
+            {/* Age */}
+            <Styled.Label $size="small">Status</Styled.Label>
+            <Styled.Label>{pet?.status}</Styled.Label>
+            {/* Email */}
+            <Styled.Label $size="small">Category</Styled.Label>
+            <Styled.Label>{getPetCategories()}</Styled.Label>
 
-          {/* Address */}
-          <Styled.Label $size="small">Tags</Styled.Label>
-          <Styled.Label>{getPetTags()}</Styled.Label>
+            {/* Address */}
+            <Styled.Label $size="small">Tags</Styled.Label>
+            <Styled.Label>{getPetTags()}</Styled.Label>
+          </Styled.Layout>
         </Styled.Layout>
-      </Styled.Layout>
-    </Styled.PageCardLayout>
+      </Styled.PageCardLayout>
+    </React.Suspense>
   );
 };
 

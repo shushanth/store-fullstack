@@ -3,33 +3,37 @@ import { setupAppStore } from '../../store/rootStore';
 import { renderWithProviders } from '../../config/tests/setupTests';
 import PetList from '../../pages/petList/PetList';
 
-import { fetchPetListSuccess } from '../../pages/petList/store/petListSlice';
+import {
+  fetchPetListLoading,
+  fetchPetListSuccess,
+  fetchPetsError,
+} from '../../pages/petList/store/petListSlice';
 import { PetStatusEnum } from '../../pages/petList/store/petListSliceModel';
 import App from '../../App';
 
 test('renders petList with initial app store', () => {
   const store = setupAppStore();
 
-  renderWithProviders(<PetList />, { store });
+  renderWithProviders(<App />, { store });
   const element = screen.queryByTestId('petlist-component');
   expect(element).toBeDefined();
 });
 
 test('renders petList with list view component', () => {
   const store = setupAppStore();
-  renderWithProviders(<PetList />, { store });
+  renderWithProviders(<App />, { store });
   const element = screen.queryByTestId('petlist-view-component');
   expect(element).toBeDefined();
 });
 
 test('renders petList with page action component', () => {
   const store = setupAppStore();
-  renderWithProviders(<PetList />, { store });
+  renderWithProviders(<App />, { store });
   const element = screen.queryByTestId('petlist-pageAction-component');
   expect(element).toBeDefined();
 });
 
-test('renders petlist page with added pet', async () => {
+test('renders petlist page with added pet', () => {
   const store = setupAppStore();
   renderWithProviders(<App />, { store });
   const element = screen.queryByTestId('petlist-component');
@@ -63,5 +67,25 @@ test('renders petlist page with added pet', async () => {
     expect(list[0].photoUrls[0].name).toEqual(newPet[0].photoUrls[0].name);
     expect(list[0].tags[0].name).toEqual(newPet[0].tags[0].name);
     expect(list[0].status).toEqual(newPet[0].status);
+  });
+
+  act(() => {
+    store.dispatch(fetchPetListLoading(true));
+    const {
+      petListPage: {
+        pets: { loading },
+      },
+    } = store.getState();
+    expect(loading).toBeTruthy();
+  });
+
+  act(() => {
+    store.dispatch(fetchPetsError(true));
+    const {
+      petListPage: {
+        pets: { error },
+      },
+    } = store.getState();
+    expect(error).toBeTruthy();
   });
 });
