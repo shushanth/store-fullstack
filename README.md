@@ -1,9 +1,9 @@
 ## pet-catalog-frontend
 
-The Client app displays an pet list with and pet detail pages.
+The Client app displays an pet list with actions and pet detail pages.
 
 - Pets information \_name, status, categories & and tags are show in the list.
-- Search pets by _tags_ on the client.
+- Search pets by _tags_  and filter by status of the pets on the pet list.
 - Pet details on the route of the respective pet with information along with image .
 
 ## pet-catalog-service
