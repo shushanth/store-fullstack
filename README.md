@@ -18,6 +18,12 @@ docker-compose up —build
 
 [http://localhost:4000](http://localhost:4000/) pet-catalog-frontend.
 
-[http://localhost:3000](http://localhost:3000/v1) pet-catalog api's .
+[http://localhost:3000](http://localhost:3000/v1) pet-catalog api's.
+
+create .env file for mongodb with connection url.
+
+local.env 
+  `DB_connection=mongodb://mongo:27017
+  ...`
 
 more information in readme.md of pet-catalog-frontend & pet-catalog-service.
