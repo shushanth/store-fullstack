@@ -62,7 +62,7 @@ const PetPageActions = ({
           placeholder="search by tags"
           $size="medium"
           onChange={onTagFilter}
-          aria-label="search-filter-name"
+          aria-label="search-filter-tags"
         ></Styled.Input>
         <Styled.Button title="search" onClick={() => onPetTagFilter(tagFilter)}>
           Search
