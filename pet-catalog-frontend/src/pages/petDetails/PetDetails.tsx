@@ -43,7 +43,7 @@ const PetDetails = (): JSX.Element => {
   };
   useEffect(() => {
     requestPetDetails();
-  }, [requestPetDetails]);
+  }, []);
   return (
     <React.Suspense fallback={<Loading />}>
       <Styled.PageCardLayout test-id="petdetails-component">

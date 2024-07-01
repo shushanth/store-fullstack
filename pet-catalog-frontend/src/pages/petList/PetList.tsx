@@ -58,7 +58,7 @@ const PetList = (): JSX.Element => {
 
   React.useEffect(() => {
     requestPets();
-  }, [requestPets]);
+  }, []);
   return (
     <Styled.PageLayout data-testid="petlist-component">
       <Styled.Heading $type="h2">Pets</Styled.Heading>
