@@ -28,7 +28,7 @@ const petDetailsSlice = createSlice({
       state.loading = false;
       state.error = false;
     },
-    fetchPetDetailsError: (state, { payload }) => {
+    fetchPetDetailsError: (state, { payload }: PayloadAction<boolean>) => {
       state.loading = false;
       state.error = true;
     },

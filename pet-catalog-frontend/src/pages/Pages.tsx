@@ -7,7 +7,7 @@ const Pages = (): JSX.Element => {
   return (
     <Styled.PageLayout>
       <BrowserRouter>
-        <PageRoutes />
+        <PageRoutes data-testid="routes-component" />
       </BrowserRouter>
     </Styled.PageLayout>
   );

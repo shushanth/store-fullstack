@@ -12,6 +12,15 @@ const rootStore = configureStore({
   devTools: process.env.NODE_ENV !== 'production',
 });
 
+//for tests
+export function setupAppStore(preloadedState?: Partial<RootState>) {
+  return configureStore({
+    reducer: reducers,
+    preloadedState,
+  });
+}
+
 export type RootState = ReturnType<typeof rootStore.getState>;
+export type RootStore = ReturnType<typeof setupAppStore>;
 
 export default rootStore;

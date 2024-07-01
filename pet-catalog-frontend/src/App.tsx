@@ -6,7 +6,7 @@ import Pages from './pages/Pages';
 const App = () => {
   return (
     <Provider store={rootStore}>
-      <Pages />
+      <Pages data-testid="pages-component" />
     </Provider>
   );
 };

@@ -58,15 +58,16 @@ const PetList = (): JSX.Element => {
 
   React.useEffect(() => {
     requestPets();
-  }, []);
+  }, [requestPets]);
   return (
-    <Styled.PageLayout>
+    <Styled.PageLayout data-testid="petlist-component">
       <Styled.Heading $type="h2">Pets</Styled.Heading>
       <PetPageActions
+        data-testid="petlist-pageAction-component"
         onPetTagFilter={onPetTagFilter}
         onPetStatusFilter={onPetStatusFilter}
       />
-      <PetListView />
+      <PetListView data-testid="petlist-view-component" />
     </Styled.PageLayout>
   );
 };

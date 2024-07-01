@@ -1,4 +1,4 @@
-import { PetListState } from './petListSliceModel';
+import { Pet, PetListState } from './petListSliceModel';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const initialState: PetListState = {
@@ -20,8 +20,8 @@ const petListSlice = createSlice({
       state.pets.loading = payload;
       state.pets.error = false;
     },
-    fetchPetListSuccess: (state, { payload }) => {
-      state.pets.list = payload;
+    fetchPetListSuccess: (state, { payload }: PayloadAction<Pet[]>) => {
+      state.pets.list = [...payload];
       state.pets.loading = false;
       state.pets.error = false;
     },
